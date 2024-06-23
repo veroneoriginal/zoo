@@ -9,5 +9,5 @@ services:
       POSTGRES_PASSWORD: otus123
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "5432:5432"
+      - "5433:5433"
 
