@@ -1,4 +1,4 @@
-runserver:
+run:
 	python manage.py runserver
 
 newapp:
