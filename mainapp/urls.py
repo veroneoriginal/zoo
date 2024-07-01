@@ -10,4 +10,6 @@ urlpatterns = [
     path('category/create/', views.CategoryCreateView.as_view(), name='category_create'),
     path('category/update/<int:pk>', views.CategoryUpdateView.as_view(), name='category_update'),
     path('category/delete/<int:pk>', views.CategoryDeleteView.as_view(), name='category_delete'),
+
+    path('animal/list/', views.AnimalListView.as_view(), name='animal_list'),
 ]

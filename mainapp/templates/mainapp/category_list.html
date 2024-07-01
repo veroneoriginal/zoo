@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-Categories
+    Categories
 {% endblock %}
 
 {% block body %}
@@ -23,6 +23,8 @@ Categories
                         card's content.</p>
                     <a href="{% url 'mainapp:category_update' pk=category.pk %}" class="btn btn-success">Update</a>
                     <a href="{% url 'mainapp:category_delete' pk=category.pk %}" class="btn btn-primary">Delete</a>
+                    <a href="{% url 'mainapp:animal_list' %}?category_id={{category.id}}" class="btn btn-danger">Get
+                        Animals</a>
                 </div>
             </div>
         </div>
@@ -30,5 +32,7 @@ Categories
     </div>
     <p></p>
     <a class="btn btn-info" href="{% url 'mainapp:category_create' %}">Create</a>
+    <hr>
+    <p class="text-warning">{{some_text}}</p>
 </div>
 {% endblock %}
