@@ -41,9 +41,6 @@ class CategoryListView(ListView):
         return context
 
 
-
-
-
 class CategoryDetailView(DetailView):
     model = Category
 
@@ -96,6 +93,7 @@ class AnimalListView(ListView):
 
     def get(self, request, *args, **kwargs):
         self.category_id = request.GET.get('category_id', None)
+        print("CATEGORY_ID", self.category_id)
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
