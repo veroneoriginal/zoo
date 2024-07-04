@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-    Categories
+Categories
 {% endblock %}
 
 {% block body %}
@@ -12,7 +12,6 @@
         {% for category in category_list %}
         <div class="col-lg-3">
             <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">
                         <a href="{% url 'mainapp:category_detail' pk=category.pk %}">

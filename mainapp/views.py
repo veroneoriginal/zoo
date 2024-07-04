@@ -101,3 +101,11 @@ class AnimalListView(ListView):
         if self.category_id is not None:
             queryset = queryset.filter(category_id=self.category_id)
         return queryset
+
+
+class AnimalCreateView(CreateView):
+    """Представление для создания животных"""
+
+    model = Animal
+    fields = "__all__"
+    success_url = reverse_lazy('mainapp:animal_list')
