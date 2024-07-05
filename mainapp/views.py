@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from .models import Category, Animal
+from .forms import AnimalForm
 
 
 # данные запроса
@@ -107,5 +108,5 @@ class AnimalCreateView(CreateView):
     """Представление для создания животных"""
 
     model = Animal
-    fields = "__all__"
+    form_class = AnimalForm
     success_url = reverse_lazy('mainapp:animal_list')
