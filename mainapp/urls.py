@@ -13,4 +13,6 @@ urlpatterns = [
 
     path('animal/list/', views.AnimalListView.as_view(), name='animal_list'),
     path('animal/create/', views.AnimalCreateView.as_view(), name='animal_create'),
+
+    path('contact/', views.ContactFormView.as_view(), name='contact'),
 ]

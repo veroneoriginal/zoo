@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from .models import Category, Animal
-from .forms import AnimalForm
+from .forms import AnimalForm, ContactForm
 
 
 # данные запроса
@@ -110,3 +110,15 @@ class AnimalCreateView(CreateView):
     model = Animal
     form_class = AnimalForm
     success_url = reverse_lazy('mainapp:animal_list')
+
+
+class ContactFormView(FormView):
+    form_class = ContactForm
+    success_url = reverse_lazy('mainapp:index')
+    template_name = 'mainapp/contact.html'
+
+    # Переопределяем метод
+    def form_valid(self, form):
+        data = form.cleaned_data
+        print('MESSAGE', data['message'])
+        return super().form_valid(form)
