@@ -10,6 +10,7 @@ class AnimalForm(forms.ModelForm):
                            # вид поля Textarea или TextInput
                            widget=forms.TextInput(
                                attrs={'placeholder': 'Input animal name',
+                                      # указывается для того, чтобы заработал bootstrap
                                       'class': 'form-control', }
                            )
                            )
