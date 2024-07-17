@@ -11,7 +11,7 @@ migrate:
 	python manage.py migrate
 
 createsuperuser:
-	python manage.py createsuperuser
+	python manage.py create_admin
 
 fill_db:
 	python manage.py fill_db

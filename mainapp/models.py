@@ -32,3 +32,24 @@ class Animal(TimeStampMixin):
 
     def __str__(self):
         return f'{self.name}'
+
+
+# class WildAnimal(models.Model):
+#     animal = models.OneToOneField(Animal, on_delete=models.CASCADE)
+#
+#
+# class HomeAnimal(models.Model):
+#     animal = models.OneToOneField(Animal, on_delete=models.CASCADE)
+#     last_owner_name = models.CharField(max_length=100, blank=True, null=True)
+
+class WildAnimal(Animal):
+    pass
+
+
+class HomeAnimal(Animal):
+    last_owner_name = models.CharField(max_length=100, blank=True, null=True)
+
+
+class AnimalCard(TimeStampMixin):
+    animal = models.OneToOneField(Animal, on_delete=models.CASCADE)
+    text = models.TextField(blank=True, null=True)
