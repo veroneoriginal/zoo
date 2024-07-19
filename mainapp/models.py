@@ -33,6 +33,14 @@ class Animal(TimeStampMixin):
     def __str__(self):
         return f'{self.name}'
 
+    def show_food(self):
+        food = []
+        food_queryset = self.food.all()
+        for food_obj in food_queryset:
+            food.append(food_obj.name)
+        food_str = ', '.join(food)
+        return food_str
+
 
 # class WildAnimal(models.Model):
 #     animal = models.OneToOneField(Animal, on_delete=models.CASCADE)
@@ -43,7 +51,7 @@ class Animal(TimeStampMixin):
 #     last_owner_name = models.CharField(max_length=100, blank=True, null=True)
 
 class WildAnimal(Animal):
-    pass
+    age = models.PositiveSmallIntegerField(default=0)
 
 
 class HomeAnimal(Animal):

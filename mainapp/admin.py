@@ -6,7 +6,7 @@ admin.site.register(Food)
 
 
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category')
+    list_display = ('name', 'category', 'show_food')
 
 
 admin.site.register(Animal, AnimalAdmin)

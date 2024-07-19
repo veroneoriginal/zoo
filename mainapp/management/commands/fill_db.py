@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from mainapp.models import Food, Animal, Category
+from mainapp.models import Food, Animal, Category, WildAnimal
 
 
 class Command(BaseCommand):
@@ -23,24 +23,28 @@ class Command(BaseCommand):
         honey = Food.objects.create(name='Мед')
 
         print('Create animals ... ')
-        leo = Animal.objects.create(name="Leo", category=tiger)
-        boris = Animal.objects.create(name="Boris", category=bear)
+        leo = WildAnimal.objects.create(name="Leo", category=tiger, age=1)
+        tiger_leo = WildAnimal.objects.create(name="Tiger Leo", category=tiger, age=3)
+        boris = WildAnimal.objects.create(name="Boris", category=bear, age=5)
 
         # many to many - многие ко многим
         leo.food.add(meat)
         leo.food.add(banana)
         leo.save()
 
+        tiger_leo.food.add(meat)
+        tiger_leo.save()
+
         boris.food.add(meat)
         boris.food.add(honey)
         boris.save()
 
-        print('Update ... ')
-        leo.name = "Tom"
-        leo.save()
+        # print('Update ... ')
+        # leo.name = "Tom"
+        # leo.save()
 
         print('Get all ... ')
-        animals = Animal.objects.all()
+        animals = WildAnimal.objects.all()
         for animal in animals:
             print(animal.name)
             print(animal.category.name)
@@ -49,13 +53,12 @@ class Command(BaseCommand):
 
         print('Get one ... ')
         print('First')
-        first_animal = Animal.objects.filter(id=leo.id).first()
+        first_animal = WildAnimal.objects.filter(id=leo.id).first()
         print('first_animal =', first_animal.name)
 
         print('Get')
-        get_animal = Animal.objects.get(id=leo.id)
+        get_animal = WildAnimal.objects.get(id=leo.id)
         print('first_animal =', get_animal.name)
-
 
         self.stdout.write(
             self.style.SUCCESS('Done')
