@@ -50,3 +50,15 @@ class Command(BaseCommand):
         # теперь можно написать этот запрос в 1 строчку
         animals = Animal.objects.filter(category__name__startswith='Т')
         print(animals)
+
+        # Количество животных
+        # не очень хороший вариант
+        print(len(animals))
+
+        # хороший вариант
+        print(animals.count())
+
+        # есть ли животное с именем содержащим Tom
+        animals = Animal.objects.filter(name__icontains='Leo')
+
+        print(animals.exists())
