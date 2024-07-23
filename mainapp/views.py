@@ -92,6 +92,12 @@ class AnimalListView(ListView):
     model = Animal
     template_name = 'mainapp/animals.html'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['category_list'] = Category.objects.all()
+        print("Count Category", context['category_list'].count())
+        return context
+
     def get(self, request, *args, **kwargs):
         self.category_id = request.GET.get('category_id', None)
         print("CATEGORY_ID", self.category_id)

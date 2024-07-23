@@ -7,6 +7,9 @@ Animals
 
 
 <div class="container">
+    {% with object_list.count as object_count %}
+    <h2>Количество животных: {{object_count}}</h2>
+    <p></p>
     <!-- Example row of columns -->
     <div class="row">
         {% for object in object_list %}
@@ -30,6 +33,8 @@ Animals
         </div>
         {% endfor %}
     </div>
+    <h2>Количество животных: {{object_count}}</h2>
+    {% endwith %}
     <p></p>
     <a class="btn btn-info" href="{% url 'mainapp:animal_create' %}">Create</a>
 </div>

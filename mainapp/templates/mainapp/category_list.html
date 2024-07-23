@@ -7,6 +7,9 @@ Categories
 
 
 <div class="container">
+    {% with category_list.count as count %}
+    <h2>Количество категорий животных: {{count}}</h2>
+    <p></p>
     <!-- Example row of columns -->
     <div class="row">
         {% for category in category_list %}
@@ -29,6 +32,8 @@ Categories
         </div>
         {% endfor %}
     </div>
+    <h2>Количество категорий животных: {{count}}</h2>
+    {% endwith %}
     <p></p>
     <a class="btn btn-info" href="{% url 'mainapp:category_create' %}">Create</a>
     <hr>
