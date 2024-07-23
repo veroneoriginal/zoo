@@ -23,9 +23,11 @@ class Command(BaseCommand):
         honey = Food.objects.create(name='Мед')
 
         print('Create animals ... ')
-        leo = WildAnimal.objects.create(name="Leo", category=tiger, age=1)
-        tiger_leo = WildAnimal.objects.create(name="Tiger Leo", category=tiger, age=3)
-        boris = WildAnimal.objects.create(name="Boris", category=bear, age=5)
+
+        for _ in range(100):
+            leo = WildAnimal.objects.create(name="Leo", category=tiger, age=1)
+            tiger_leo = WildAnimal.objects.create(name="Tiger Leo", category=tiger, age=3)
+            boris = WildAnimal.objects.create(name="Boris", category=bear, age=5)
 
         # many to many - многие ко многим
         leo.food.add(meat)

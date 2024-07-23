@@ -101,6 +101,9 @@ class AnimalListView(ListView):
         queryset = super().get_queryset()
         if self.category_id is not None:
             queryset = queryset.filter(category_id=self.category_id)
+
+        queryset = queryset.select_related('category')
+        queryset = queryset.prefetch_related('food')
         return queryset
 
 

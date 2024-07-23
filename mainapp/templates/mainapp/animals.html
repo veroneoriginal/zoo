@@ -15,6 +15,16 @@ Animals
                 <div class="card-body">
                     <h5 class="card-title">{{object.name}}</h5>
                     <p class="card-text">{{object.category.name}}</p>
+
+                    {% if object.food.exists %}
+                        <p>food:</p>
+                        <ul class="list_group">
+                            {% for food in object.food.all %}
+                            <li class="list_group-item">
+                                {{food.name}}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>
