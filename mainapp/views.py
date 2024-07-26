@@ -95,7 +95,6 @@ class AnimalListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['category_list'] = Category.objects.all()
-        print("Count Category", context['category_list'].count())
         return context
 
     def get(self, request, *args, **kwargs):
@@ -110,6 +109,10 @@ class AnimalListView(ListView):
 
         queryset = queryset.select_related('category')
         queryset = queryset.prefetch_related('food')
+
+        for animal in queryset:
+            print(animal.show_food)
+
         return queryset
 
 
