@@ -52,7 +52,7 @@ class Animal(TimeStampMixin):
 #     last_owner_name = models.CharField(max_length=100, blank=True, null=True)
 
 class WildAnimal(Animal):
-    age = models.PositiveSmallIntegerField(default=0)
+    age = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
 
 
 class HomeAnimal(Animal):

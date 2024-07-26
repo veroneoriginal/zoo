@@ -35,8 +35,8 @@ class Command(BaseCommand):
         print("Animals with name filter")
         # Найти животное, у которого имя содержит Leo с учетом регистра и без
         animals = Animal.objects.filter(name__contains='Leo')
-        for item in animals:
-            print(item.name)
+        # for item in animals:
+        #     print(item.name)
 
         # Найти животных с категорией, название которой начинается на Т
         print("Animals with category start T")

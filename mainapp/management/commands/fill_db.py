@@ -14,6 +14,10 @@ class Command(BaseCommand):
         print('Create categories ... ')
         bear = Category.objects.create(name='Медведь')
         tiger = Category.objects.create(name='Тигр')
+        wolf = Category.objects.create(name='Волк')
+        hamster = Category.objects.create(name='Хомяк')
+        cat = Category.objects.create(name='Кошка')
+        dog = Category.objects.create(name='Собака')
 
         print('Delete food ... ')
         Food.objects.all().delete()
@@ -23,27 +27,15 @@ class Command(BaseCommand):
         meat = Food.objects.create(name='Мясо')
         honey = Food.objects.create(name='Мед')
 
-        print('Create animals ... ')
-
-        for _ in range(10):
-            leo = WildAnimal.objects.create(name="Leo", category=tiger, age=1)
+        print('Create wild animals ... ')
+        for _ in range(3):
+            leo = WildAnimal.objects.create(name="Leo", category=wolf, age=1)
             tiger_leo = WildAnimal.objects.create(name="Tiger Leo", category=tiger, age=3)
             boris = WildAnimal.objects.create(name="Boris", category=bear, age=5)
 
-        WildAnimal.objects.all().update(age=F('age') + 1)
-
-        wild_animals_list = []
-        for _ in range(100):
-            leo = Animal(name="Leo", category=tiger)
-            wild_animals_list.append(leo)
-
-            tiger_leo = Animal(name="Tiger Leo", category=tiger)
-            wild_animals_list.append(tiger_leo)
-
-            boris = Animal(name="Boris", category=bear)
-            wild_animals_list.append(boris)
-
-        Animal.objects.bulk_create(wild_animals_list)
+        print('check wild animals age')
+        for animal in WildAnimal.objects.all():
+            print(animal.name, animal.age)
 
         # many to many - многие ко многим
         leo.food.add(meat)
@@ -56,6 +48,36 @@ class Command(BaseCommand):
         boris.food.add(meat)
         boris.food.add(honey)
         boris.save()
+
+        # увеличить возраст всех животных на 1
+        WildAnimal.objects.all().update(age=F('age') + 1)
+
+        # Запрос обновленных значений из базы данных для проверки
+        updated_animals = WildAnimal.objects.all()
+
+        print('check wild animals age after update')
+        for animal in updated_animals:
+            print(f"Wild_animal: {animal.name}, Age: {animal.age}")
+
+        print('Create animals ... ')
+        animals_list = []
+        for _ in range(10):
+            tom = Animal(name="Tom", category=hamster)
+            animals_list.append(tom)
+
+            roni = Animal(name="Roni", category=cat)
+            animals_list.append(roni)
+
+            johns = Animal(name="Johns", category=dog)
+            animals_list.append(johns)
+
+        Animal.objects.bulk_create(animals_list)
+
+        # # всех животных в базе сделать тиграми
+        # Animal.objects.all().update(category=tiger)
+
+        # # удаление объектов по фильтру
+        # Animal.objects.filter(name="Boris").delete()
 
         # print('Update ... ')
         # leo.name = "Tom"
