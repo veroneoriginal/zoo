@@ -6,7 +6,7 @@ Animals
 
 
 <div class="container">
-<!--    {% with object_list.count as object_count %}-->
+    {% with object_list.count as object_count %}
     <h2>Количество животных: {{object_count}}</h2>
     <p></p>
     <!-- Example row of columns -->
@@ -17,31 +17,33 @@ Animals
                 <div class="card-body">
                     <h5 class="card-title">{{ object.name }}</h5>
                     <p class="card-text">{{ object.category.name }}</p>
-
                     {% if object.age %}
                     <p class="card-text">Возраст: {{object.age}}</p>
                     {% else %}
                     <p class="card-text">Возраст: Не указан</p>
                     {% endif %}
 
-<!--                    {% if object.food.exists %}-->
-<!--                    <p>Food:</p>-->
-<!--                    <ul class="list-group">-->
-<!--                        {% for food in object.food.all %}-->
-<!--                        <li class="list-group-item">-->
-<!--                            {{ food.name }}-->
-<!--                        </li>-->
-<!--                        {% endfor %}-->
-<!--                    </ul>-->
-<!--                    {% endif %}-->
+                    {% if object.food.exists %}
+                    <p>Food:</p>
+                    <ul class="list-group">
+                        {% for food in object.food.all %}
+                        <li class="list-group-item">
+                            {{ food.name }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    <p>
     <h2>Количество животных: {{object_count}}</h2>
-<!--    {% endwith %}-->
-    <p></p>
-    <a class="btn btn-info" href="{% url 'mainapp:animal_create' %}">Create</a>
+    </p>
+    {% endwith %}
+    <p>
+        <a class="btn btn-info" href="{% url 'mainapp:animal_create' %}">Create</a>
+    </p>
 </div>
 {% endblock %}

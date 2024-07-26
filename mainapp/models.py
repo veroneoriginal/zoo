@@ -43,14 +43,6 @@ class Animal(TimeStampMixin):
         return food_str
 
 
-# class WildAnimal(models.Model):
-#     animal = models.OneToOneField(Animal, on_delete=models.CASCADE)
-#
-#
-# class HomeAnimal(models.Model):
-#     animal = models.OneToOneField(Animal, on_delete=models.CASCADE)
-#     last_owner_name = models.CharField(max_length=100, blank=True, null=True)
-
 class WildAnimal(Animal):
     age = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
 

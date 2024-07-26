@@ -1,9 +1,9 @@
-from django.db.models import Value, CharField
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
-from .models import Category, Animal, WildAnimal
+from .models import Category, Animal
 from .forms import AnimalForm, ContactForm
+from django.db.models import Case, When, Value, IntegerField
 
 
 # данные запроса
@@ -93,79 +93,20 @@ class AnimalListView(ListView):
     model = Animal
     template_name = 'mainapp/animals.html'
 
-    def get_context_data(self, *args, **kwargs):
-        # context = super().get_context_data(*args, **kwargs)
-        # context['category_list'] = Category.objects.all()
-        # return context
-        context = super().get_context_data(*args, **kwargs)
-        context['category_list'] = Category.objects.all()
-
-        # Получение всех животных
-        all_animals = Animal.objects.all()
-        wild_animals = WildAnimal.objects.all()
-
-        wild_animal_ids = wild_animals.values_list('id', flat=True)
-        domestic_animals = all_animals.exclude(id__in=wild_animal_ids)
-
-        combined_list = list(domestic_animals) + list(wild_animals)
-
-        if self.category_id is not None:
-            combined_list = [animal for animal in combined_list if animal.category_id == int(self.category_id)]
-
-        context['object_list'] = combined_list
-        context['object_count'] = len(combined_list)
-
-        return context
-
-    def get(self, request, *args, **kwargs):
-        self.category_id = request.GET.get('category_id', None)
-        return super().get(request, *args, **kwargs)
-
     def get_queryset(self):
-        object_count = Animal.objects.all()
-        return len(object_count)
-        # # Все животные
-        # all_animals = super().get_queryset().annotate(animal_type=Value('Animal', output_field=CharField()))
-        #
-        # # Дикие животные
-        # wild_animals = WildAnimal.objects.annotate(animal_type=Value('WildAnimal', output_field=CharField()))
-        #
-        # # Объединение домашних и диких животных
-        # queryset = all_animals.union(wild_animals)
-        #
-        # # Применение фильтра по категории, если указан
-        # if self.category_id is not None:
-        #     queryset = [animal for animal in queryset if animal.category_id == int(self.category_id)]
+        # Все животные
+        queryset = Animal.objects.select_related('wildanimal').annotate(
+            age=Case(
+                When(wildanimal__isnull=False, then='wildanimal__age'),
+                default=Value(None),
+                output_field=IntegerField()
+            )
+        )
 
-        # return queryset
+        queryset = queryset.select_related('category')
+        queryset = queryset.prefetch_related('food')
 
-    # def get_queryset(self):
-    #     # все животные
-    #     all_animals = super().get_queryset()
-    #
-    #     # дикие животные с указанием возраста
-    #     wild_animals = WildAnimal.objects.all()
-    #
-    #     # домашние животные = все животные - дикие животные
-    #     wild_animal_ids = wild_animals.values_list('id', flat=True)
-    #     home_animals = all_animals.exclude(id__in=wild_animal_ids)
-    #
-    #     # Объединение домашних и диких животных
-    #     queryset = list(home_animals) + list(wild_animals)
-    #
-    #     return queryset
-
-    #     # if self.category_id is not None:
-    #     #     queryset = queryset.filter(category_id=self.category_id)
-    #
-    #     queryset = queryset.select_related('category')
-    #     queryset = queryset.prefetch_related('food')
-    #
-    #     # for wild_animal in queryset:
-    #     #     print(f"Wild_animal: {wild_animal.name}, Age: {wild_animal.age}")
-    #
-    #     # for animal in queryset:
-    #     #     print(animal.show_food)
+        return queryset
 
 
 class AnimalCreateView(CreateView):
