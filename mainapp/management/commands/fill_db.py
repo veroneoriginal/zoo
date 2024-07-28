@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from mainapp.models import Food, Animal, Category, WildAnimal
-from django.db.models import F, Q
+from django.db.models import F, Q, Max, Min, Sum, Count, Subquery
+import random
 
 
 class Command(BaseCommand):
@@ -34,8 +35,8 @@ class Command(BaseCommand):
             boris = WildAnimal.objects.create(name="Boris", category=bear, age=5)
 
         print('check wild animals age')
-        for animal in WildAnimal.objects.all():
-            print(animal.name, animal.age)
+        # for animal in WildAnimal.objects.all():
+        #     print(animal.name, animal.age)
 
         # many to many - многие ко многим
         leo.food.add(meat)
@@ -49,15 +50,41 @@ class Command(BaseCommand):
         boris.food.add(honey)
         boris.save()
 
-        # увеличить возраст всех животных на 1
-        WildAnimal.objects.all().update(age=F('age') + 1)
+        # увеличить возраст всех животных на рандомное значение
+        WildAnimal.objects.all().update(age=F('age') + random.randint(1, 10))
 
         # Запрос обновленных значений из базы данных для проверки
         updated_animals = WildAnimal.objects.all()
 
         print('check wild animals age after update')
-        for animal in updated_animals:
-            print(f"Wild_animal: {animal.name}, Age: {animal.age}")
+        # for animal in updated_animals:
+        #     print(f"Wild_animal: {animal.name}, Age: {animal.age}")
+
+        # # Получить максимальный возраст животного - Max
+        # max_age = WildAnimal.objects.aggregate(Max('age'))['age__max']
+        # print('max_age', max_age)
+        #
+        # # Получить минимальный возраст животного - Min
+        # min_age = WildAnimal.objects.aggregate(Min('age'))['age__min']
+        # print('min_age', min_age)
+        #
+        # # Получить суммарный возраст всех животных - Sum
+        # sum_age = WildAnimal.objects.aggregate(Sum('age'))['age__sum']
+        # print('sum_age', sum_age)
+        #
+        # # Получить число животных, у которых есть значение возраста - count
+        # count_age = WildAnimal.objects.aggregate(Count('age'))['age__count']
+        # print('count_age', count_age)
+
+        # # Получить имя животного, у которого самый максимальный возраст - Subquery
+        # animal_name_with_max_age = WildAnimal.objects.aggregate(Max('age'))['age__max']
+        # print('animal_name_with_max_age', animal_name_with_max_age)
+        #
+        # animal_item = WildAnimal.objects.filter(age=animal_name_with_max_age).values('name', 'age')
+        # print(list(animal_item)[0])
+
+        dif_animal = WildAnimal.objects.aggregate(Max('age'), Count('age'))
+        print(dif_animal)
 
         print('Create animals ... ')
         animals_list = []
