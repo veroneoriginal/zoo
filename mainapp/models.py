@@ -42,6 +42,9 @@ class Animal(TimeStampMixin):
         food_str = ', '.join(food)
         return food_str
 
+    def get_category_name(self):
+        return self.category.name
+
 
 class WildAnimal(Animal):
     age = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
