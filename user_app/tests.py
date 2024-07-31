@@ -20,3 +20,15 @@ class TestRegisterView(TestCase):
         # проверяем форму, потому что она особенная
         form = context[form_context_name]
         self.assertEqual(type(form), RegistrationForm)
+
+
+class TestRegisterViewPost(TestCase):
+    def test_post_status_code(self):
+        data = {
+            'username': 'new_user',
+            'email': 'test@test.ru',
+            'password1': 'qweRty_1Nv',
+            'password2': 'qweRty_1Nv',
+        }
+        responce = self.client.post('/users/register/', data)
+        self.assertEqual(responce.status_code, 302)
