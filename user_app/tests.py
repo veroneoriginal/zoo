@@ -1,5 +1,6 @@
 from django.test import TestCase
 from .forms import RegistrationForm
+from .models import MyUser
 
 
 class TestRegisterView(TestCase):
@@ -23,12 +24,23 @@ class TestRegisterView(TestCase):
 
 
 class TestRegisterViewPost(TestCase):
-    def test_post_status_code(self):
+
+    def setUp(self):
         data = {
             'username': 'new_user',
             'email': 'test@test.ru',
             'password1': 'qweRty_1Nv',
             'password2': 'qweRty_1Nv',
         }
-        responce = self.client.post('/users/register/', data)
-        self.assertEqual(responce.status_code, 302)
+        self.responce = self.client.post('/users/register/', data)
+
+    def test_post_status_code(self):
+        # Этот тест проверяет статус-код ответа, который возвращается
+        # при попытке отправки POST-запроса на URL /users/register/
+        # с определенными данными для регистрации пользователя.
+
+        self.assertEqual(self.responce.status_code, 302)
+
+    def test_user_created(self):
+        # Проверяем, что пользователь создан
+        self.assertTrue(MyUser.objects.filter(username='new_user').exists())
