@@ -32,15 +32,44 @@ class TestRegisterViewPost(TestCase):
             'password1': 'qweRty_1Nv',
             'password2': 'qweRty_1Nv',
         }
-        self.responce = self.client.post('/users/register/', data)
+        self.response = self.client.post('/users/register/', data)
 
     def test_post_status_code(self):
         # Этот тест проверяет статус-код ответа, который возвращается
         # при попытке отправки POST-запроса на URL /users/register/
         # с определенными данными для регистрации пользователя.
 
-        self.assertEqual(self.responce.status_code, 302)
+        self.assertEqual(self.response.status_code, 302)
 
     def test_user_created(self):
         # Проверяем, что пользователь создан
         self.assertTrue(MyUser.objects.filter(username='new_user').exists())
+
+    def test_redirect_url(self):
+        self.assertRedirects(self.response, '/users/login/')
+
+
+class TestPermissions(TestCase):
+    def test_status_code(self):
+        url = '/category/create/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+        # создание пользователя
+        user = MyUser.objects.create_user(username='tomas_shelbi',
+                                          email='tomi@test.ru',
+                                          password='Tom_She_MSK')
+
+        # быстрая авторизация пользователя
+        self.client.login(username='tomas_shelbi', password='Tom_She_MSK')
+
+        # снова делаем запрос и статус должен быть уже 200
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        # выходим
+        self.client.logout()
+
+        # запрашиваем статус страницы
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)

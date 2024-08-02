@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
@@ -52,7 +53,7 @@ class CategoryDetailView(DetailView):
     # get_object - получение одного объекта
 
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     fields = "__all__"
     success_url = reverse_lazy('mainapp:category_list')
