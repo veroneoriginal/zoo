@@ -50,7 +50,9 @@ class TestRegisterViewPost(TestCase):
 
 
 class TestPermissions(TestCase):
+    """ Есть ли разрешение на просмотр определенных страниц у авторизованного пользователя """
     def test_status_code(self):
+        # Проверяем статус-код
         url = '/category/create/'
         response = self.client.get(url)
         self.assertEqual(response.status_code, 302)
