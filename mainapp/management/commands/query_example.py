@@ -1,5 +1,9 @@
 from django.core.management.base import BaseCommand
-from mainapp.models import WildAnimal, Animal, Category
+from mainapp.models import (
+    # WildAnimal,
+    Animal,
+    Category
+)
 
 
 class Command(BaseCommand):
@@ -7,25 +11,25 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print('All animals')
-        animals = Animal.objects.all()
 
-        # for animal in animals:
-        #     print(animal.name)
+        animals = Animal.objects.all()
+        for animal in animals:
+            print(animal.name)
 
         print('Simple filter')
         # Все животные с именем Leo
         leos = Animal.objects.filter(name="Leo")
-        # print(len(leos))
-        # print(type(leos))
-        # print(leos.first().name)
+        print(len(leos))
+        print(type(leos))
+        print(leos.first().name)
 
         print('Age animals')
-        # Найти животное с возрастом меньше 5 лет
-        age_animals = WildAnimal.objects.filter(age__lt=5)
-
+        # # Найти животное с возрастом меньше 5 лет
+        # age_animals = WildAnimal.objects.filter(age__lt=5)
+        #
         # for item in age_animals:
         #     print(item.name, item.age)
-
+        #
         # # Найти животное с возрастом меньше или равным 5 лет
         # age_animals = Animal.objects.filter(age__lte=5)
         #
@@ -35,8 +39,8 @@ class Command(BaseCommand):
         print("Animals with name filter")
         # Найти животное, у которого имя содержит Leo с учетом регистра и без
         animals = Animal.objects.filter(name__contains='Leo')
-        # for item in animals:
-        #     print(item.name)
+        for item in animals:
+            print(item.name)
 
         # Найти животных с категорией, название которой начинается на Т
         print("Animals with category start T")

@@ -1,5 +1,4 @@
 from django.test import TestCase
-
 from mainapp.models import Category, Animal
 
 
@@ -33,15 +32,14 @@ class TestCategorylistView(TestCase):
         category_list = context['object_list']
         self.assertEqual(len(category_list), 0)
 
-        category = Category.objects.create(name="some name")
+        Category.objects.create(name="some name")
         response = self.client.get(url)
         context = response.context
         category_list = context['object_list']
         self.assertEqual(len(category_list), 1)
 
     def test_content(self):
-        category = Category.objects.create(name="some name")
+        Category.objects.create(name="some name")
         url = '/category/list/'
         response = self.client.get(url)
-        content = response.content
         self.assertContains(response, "some name", 1)

@@ -2,9 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
-from .models import Category, Animal
-from .forms import AnimalForm, ContactForm
 from django.db.models import Case, When, Value, IntegerField
+from mainapp.models import Category, Animal
+from mainapp.forms import AnimalForm, ContactForm
 
 
 # данные запроса

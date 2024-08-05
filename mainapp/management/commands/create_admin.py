@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Command(BaseCommand):
     help = "Fill db with test data"
 
+    # pylint: disable=W0702 bare-except
     def handle(self, *args, **options):
         try:
             User.objects.create_superuser('admin', 'admin@admin.com', 'qwerty')

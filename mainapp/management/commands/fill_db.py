@@ -1,9 +1,12 @@
-from django.core.management.base import BaseCommand, CommandError
-from mainapp.models import Food, Animal, Category, WildAnimal
-from django.db.models import F, Q, Max, Min, Sum, Count, Subquery
 import random
 
+from django.core.management.base import BaseCommand
+from django.db.models import F, Max, Count
 
+from mainapp.models import Food, Animal, Category, WildAnimal
+
+
+# pylint: disable=R0914 too-many-locals
 class Command(BaseCommand):
     help = "Fill db with test data"
 
@@ -54,7 +57,7 @@ class Command(BaseCommand):
         WildAnimal.objects.all().update(age=F('age') + random.randint(1, 10))
 
         # Запрос обновленных значений из базы данных для проверки
-        updated_animals = WildAnimal.objects.all()
+        # updated_animals = WildAnimal.objects.all()
 
         print('check wild animals age after update')
         # for animal in updated_animals:
@@ -80,7 +83,9 @@ class Command(BaseCommand):
         # animal_name_with_max_age = WildAnimal.objects.aggregate(Max('age'))['age__max']
         # print('animal_name_with_max_age', animal_name_with_max_age)
         #
-        # animal_item = WildAnimal.objects.filter(age=animal_name_with_max_age).values('name', 'age')
+        # animal_item = (WildAnimal.objects
+        #                .filter(age=animal_name_with_max_age)
+        #                .values('name', 'age'))
         # print(list(animal_item)[0])
 
         dif_animal = WildAnimal.objects.aggregate(Max('age'), Count('age'))

@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import CreateView
 from .models import MyUser
 from .forms import RegistrationForm
 
@@ -14,4 +14,3 @@ class RegisterView(CreateView):
 
 class AuthView(LoginView):
     template_name = 'user_app/login.html'
-

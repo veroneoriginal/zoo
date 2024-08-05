@@ -51,6 +51,7 @@ class TestRegisterViewPost(TestCase):
 
 class TestPermissions(TestCase):
     """ Есть ли разрешение на просмотр определенных страниц у авторизованного пользователя """
+
     def test_status_code(self):
         # Проверяем статус-код
         url = '/category/create/'
@@ -58,9 +59,9 @@ class TestPermissions(TestCase):
         self.assertEqual(response.status_code, 302)
 
         # создание пользователя
-        user = MyUser.objects.create_user(username='tomas_shelbi',
-                                          email='tomi@test.ru',
-                                          password='Tom_She_MSK')
+        MyUser.objects.create_user(username='tomas_shelbi',
+                                   email='tomi@test.ru',
+                                   password='Tom_She_MSK')
 
         # быстрая авторизация пользователя
         self.client.login(username='tomas_shelbi', password='Tom_She_MSK')
