@@ -7,15 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.11]
-        postgres-version: [15]
+        python-version: [3.11, 3.10]
+        postgres-version: [15,16]
     services:
       postgres:
         image: postgres:${{ matrix.postgres-version }}
         env:
-          POSTGRES_DB: github_db
-          POSTGRES_USER: github_user
-          POSTGRES_PASSWORD: eu3n29dp
+          POSTGRES_DB: zoo
+          POSTGRES_USER: otus
+          POSTGRES_PASSWORD: otus123
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
