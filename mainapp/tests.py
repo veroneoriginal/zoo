@@ -17,7 +17,7 @@ class TestAnimal(TestCase):
         self.assertEqual(animal.get_category_name(), "some name")
 
 
-class TestCategorylistView(TestCase):
+class TestCategoryListView(TestCase):
 
     def test_status_code(self):
         url = '/category/list/'

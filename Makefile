@@ -26,3 +26,6 @@ coverage:
 
 lint:
 	pylint $(shell git ls-files '*.py')
+
+fill_fake:
+	python manage.py fake_faker
