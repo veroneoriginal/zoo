@@ -1,10 +1,15 @@
 from django.core.management.base import BaseCommand
 from mixer.backend.django import mixer
-from mainapp.models import Category, Animal
+from mainapp.models import (
+    Category,
+    # Animal
+)
 
 
 class Command(BaseCommand):
     help = "Fake data with mixer"
+
+    Category.objects.all().delete()
 
     # def handle(self, *args, **options):
     #
@@ -27,5 +32,4 @@ class Command(BaseCommand):
         # но можно и без нее (в этом случае)
         for i in my_list:
             category = mixer.blend(Category, name=f'{i}')
-
-
+            print(category)
