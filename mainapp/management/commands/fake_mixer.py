@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from mixer.backend.django import mixer
+from mixer.backend.django import mixer, Mixer
 from mainapp.models import (
     Category,
     Animal
@@ -57,3 +57,7 @@ class Command(BaseCommand):
 
         animals = mixer.blend(Animal, category=mixer.SELECT)
         print(animals.category.id)
+
+        lang_mixer = Mixer(locale='ar_AA')
+        category = lang_mixer.blend(Category)
+        print(category.name)

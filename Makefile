@@ -28,4 +28,4 @@ lint:
 	pylint $(shell git ls-files '*.py')
 
 fill_fake:
-	python manage.py fake_mixer
+	python manage.py fake_factory_boy
