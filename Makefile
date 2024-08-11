@@ -29,3 +29,6 @@ lint:
 
 fill_fake:
 	python manage.py fake_factory_boy
+
+go:
+	docker start lesson_11_zoo-pg-1
