@@ -2,7 +2,7 @@
 # Django Admin — это встроенная панель администратора,
 # которая позволяет управлять моделями данных через веб-интерфейс.
 
-import time
+# import time
 # admin - модуль, который предоставляет функциональность административной панели.
 from django.contrib import admin
 import django_rq
@@ -21,12 +21,7 @@ class FoodAdmin(admin.ModelAdmin):
 
     @admin.action(description="Download Food")
     def download_food(self, request, queryset):
-        # time.sleep(20)
-        # with open('food.txt', 'w', encoding='utf-8') as f:
-        #     for food in queryset.all():
-        #         f.write(f'{food.name}\n')
-        # save_report()
-        django_rq.enqueue(save_report)
+        django_rq.enqueue(save_report, queryset=queryset)
 
     # зарегать для отображениия в админке
     actions = [download_food]

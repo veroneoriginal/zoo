@@ -1,5 +1,7 @@
 import time
 
-def save_report():
+def save_report(queryset):
     time.sleep(10)
-    print('RUN TASK IN TERMINAL')
+    with open('food.txt', 'w', encoding='utf-8') as f:
+        for food in queryset.all():
+            f.write(f'{food.name}\n')

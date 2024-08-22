@@ -35,3 +35,9 @@ go:
 
 redis_go:
 	docker compose up -d redis
+
+worker_go:
+	python manage.py rqworker
+
+queue_statistic:
+	python manage.py rqstats --interval=1
