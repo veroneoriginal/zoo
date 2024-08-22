@@ -35,8 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainapp',
+    'django_rq',
     'debug_toolbar',
+    'mainapp',
     'user_app',
 ]
 
@@ -140,3 +141,11 @@ AUTH_USER_MODEL = 'user_app.MyUser'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/users/login/'
 LOGIN_URL = '/users/login/'
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': '6379',
+        'DB': 0,
+    }
+}

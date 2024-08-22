@@ -32,3 +32,6 @@ fill_fake:
 
 go:
 	docker start lesson_11_zoo-pg-1
+
+redis_go:
+	docker compose up -d redis
