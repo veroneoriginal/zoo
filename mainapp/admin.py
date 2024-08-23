@@ -2,12 +2,12 @@
 # Django Admin — это встроенная панель администратора,
 # которая позволяет управлять моделями данных через веб-интерфейс.
 
-# import time
+import time
 # admin - модуль, который предоставляет функциональность административной панели.
 from django.contrib import admin
 import django_rq
 from .models import Animal, Category, Food, WildAnimal, HomeAnimal
-from .tasks import save_report
+from .job import save_report, console_job
 
 # регистрация модели Category в административной панели
 admin.site.register(Category)
@@ -22,6 +22,20 @@ class FoodAdmin(admin.ModelAdmin):
     @admin.action(description="Download Food")
     def download_food(self, request, queryset):
         django_rq.enqueue(save_report, queryset=queryset)
+
+        # low_queue = django_rq.get_queue('low')
+        # low_queue.enqueue(save_report, queryset=queryset)
+
+        result = console_job.delay()
+        # Проверяем статус задачи в цикле, пока она не завершится
+        while True:
+            # Обновляем информацию о задаче
+            result.refresh()
+            if result.is_finished:
+                print('Final result:', result.result)
+                print('Task completed successfully!')
+                break
+            time.sleep(1)
 
     # зарегать для отображениия в админке
     actions = [download_food]
