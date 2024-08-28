@@ -1,4 +1,7 @@
 run:
+	@$(MAKE) up_pg
+	@$(MAKE) migrate
+	@$(MAKE) fill_db
 	python manage.py runserver
 
 newapp:
@@ -9,6 +12,9 @@ makemigrations:
 
 migrate:
 	python manage.py migrate
+
+up_pg:
+	@docker compose up -d pg
 
 createsuperuser:
 	python manage.py create_admin
@@ -44,3 +50,6 @@ queue_statistic:
 
 api_go:
 	python manage.py startapp api
+
+start:
+	python manage.py runserver
