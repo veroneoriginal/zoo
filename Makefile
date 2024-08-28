@@ -41,3 +41,6 @@ worker_go:
 
 queue_statistic:
 	python manage.py rqstats --interval=1
+
+api_go:
+	python manage.py startapp api
