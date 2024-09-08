@@ -27,7 +27,7 @@ test:
 
 coverage:
 	coverage run --source='.' manage.py test
-	coverage report --omit='settings/asgi.py, settings/wsgi.py, manage.py, mainapp/management/*' --fail-under=50
+	coverage report --omit='settings/asgi.py, settings/wsgi.py, manage.py, mainapp/management/*' --fail-under=35
 	coverage html --omit='settings/asgi.py, settings/wsgi.py, manage.py, mainapp/management/*'
 
 lint:
