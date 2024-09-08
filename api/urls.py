@@ -3,7 +3,7 @@ from rest_framework.routers import (
     # SimpleRouter,
     DefaultRouter,
 )
-from .views import CategoryViewSet
+from api.views import CategoryViewSet
 
 router = DefaultRouter()
 router.register('categories', CategoryViewSet)
