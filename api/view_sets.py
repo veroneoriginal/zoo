@@ -12,7 +12,7 @@ class CategoryViewSet(viewsets.ViewSet):
     # pylint: disable=W0613 unused-argument
     def category_text_only(self, request, pk=None):
         category = get_object_or_404(Category, pk=pk)
-        return Response({'category.full_name': category.title_name})
+        return Response({'category.title_name': category.title_name})
 
     # pylint: disable=W0613 unused-argument
     def list(self, request):

@@ -15,6 +15,10 @@ class Category(TimeStampMixin):
     def __str__(self):
         return f'{self.name}'
 
+    @property
+    def title_name(self):
+        return self.name.upper()
+
 
 class Food(TimeStampMixin):
     name = models.CharField(max_length=100)
