@@ -1,4 +1,4 @@
-# from pprint import pprint
+from pprint import pprint
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -16,7 +16,17 @@ response = requests.get(url, auth=HTTPBasicAuth('admin', 'qwerty'),
                             timeout=5)
 assert response.status_code == 200, response.status_code
 print(response.status_code)
-# pprint(response.json())
+pprint(response.json())
+
+
+
+token = 'ae6ff85363350be1b86165968e9d9d31dfce6a47'
+headers = {'Authorization': f'Token {token}'}
+response = requests.get(url, headers=headers, timeout=5)
+assert response.status_code == 200, response.status_code
+print(response.status_code)
+pprint(response.json())
+
 
 # print('################options#######################')
 # response = requests.options(url, timeout=5)

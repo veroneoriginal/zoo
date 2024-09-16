@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django_rq',
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
     'debug_toolbar',
     'mainapp',
     'user_app',
@@ -163,6 +164,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
             'rest_framework.authentication.BasicAuthentication',
-            'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.TokenAuthentication',
+            # 'rest_framework.authentication.SessionAuthentication',
     ]
 }
