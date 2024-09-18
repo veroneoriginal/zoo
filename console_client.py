@@ -9,15 +9,22 @@ from requests.auth import HTTPBasicAuth
 #     # 'name': "Собака",
 # }
 
+username = 'admin'
+password = 'qwerty'
+
+
+# username = 'veron_veron'
+# password = '2024_Veron'
+
+
 url = 'http://127.0.0.1:8000/api/viewsets/categories/'
 
 print('################get#######################')
-response = requests.get(url, auth=HTTPBasicAuth('admin', 'qwerty'),
+response = requests.get(url, auth=HTTPBasicAuth(username, password),
                             timeout=5)
 assert response.status_code == 200, response.status_code
 print(response.status_code)
 pprint(response.json())
-
 
 
 token = 'ae6ff85363350be1b86165968e9d9d31dfce6a47'
