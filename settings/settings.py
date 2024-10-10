@@ -171,4 +171,6 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
     'DEFAULT_VERSION': 'v1.0',
+    'ALLOWED_VERSIONS': ['v1.0', 'v2.0',],
+    'VERSION_PARAM': 'version',
 }
