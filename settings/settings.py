@@ -168,5 +168,7 @@ REST_FRAMEWORK = {
 
             # пусть будет для браузера, чтобы нас сохраняло на сайте
             # 'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+    'DEFAULT_VERSION': 'v1.0',
 }
